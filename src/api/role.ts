@@ -50,5 +50,5 @@ export function deleteRole(id: number) {
  * 获取所有角色（不分页，用于下拉选择）
  */
 export function getAllRoles() {
-  return get<Role[]>('/roles/all');
+  return get<Role[]>('/users/all');
 }

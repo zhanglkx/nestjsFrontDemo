@@ -2,7 +2,7 @@
  * 用户管理页面
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   Card,
   Table,
@@ -30,6 +30,17 @@ import { formatDateTime } from '@/utils';
 import { USER_STATUS } from '@/constants';
 import styles from './index.module.css';
 
+// API 返回的用户数据结构（用作角色选择）
+interface UserRoleData {
+  id: string;
+  username: string;
+  email: string;
+  role: string;
+  bio?: string;
+  createdAt: string;
+  updatedAt?: string;
+}
+
 export default function UserList() {
   const { users, total, loading, currentPage, pageSize, fetchUsers, addUser, editUser, removeUser, setPage, setPageSize } = useUserStore();
   const [modalVisible, setModalVisible] = useState(false);
@@ -39,40 +50,51 @@ export default function UserList() {
   const [form] = Form.useForm();
   const [searchForm] = Form.useForm();
 
-  useEffect(() => {
-    loadData();
-    loadRoles();
-  }, [currentPage, pageSize]);
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       await fetchUsers();
-    } catch (error) {
+    } catch {
       message.error('加载用户列表失败');
     }
-  };
+  }, [fetchUsers]);
 
-  const loadRoles = async () => {
-    try {
-      const roleList = await getAllRoles();
-      setRoles(roleList);
-    } catch (error) {
-      console.error('加载角色列表失败:', error);
+  useEffect(() => {
+    loadData();
+  }, [currentPage, pageSize, loadData]);
+
+  useEffect(() => {
+    async function loadRolesData() {
+      try {
+        const roleList = await getAllRoles();
+        // 将返回的用户数据映射为角色格式
+        const mappedRoles = (roleList as unknown as UserRoleData[]).map((item) => ({
+          id: item.id as unknown as number, // API 返回的是字符串 id
+          name: item.username,              // 使用 username 作为角色名
+          code: item.role,                  // 使用 role 作为角色代码
+          status: 1,
+          createdAt: item.createdAt,
+          updatedAt: item.updatedAt,
+        }));
+        setRoles(mappedRoles);
+      } catch {
+        console.error('加载角色列表失败');
+      }
     }
-  };
+    loadRolesData();
+  }, []);
 
-  const handleSearch = async (values: any) => {
+  const handleSearch = async (values: { username?: string; email?: string; status?: number }) => {
     try {
       await fetchUsers(values);
-    } catch (error) {
+    } catch {
       message.error('搜索失败');
     }
   };
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     searchForm.resetFields();
     loadData();
-  };
+  }, [searchForm, loadData]);
 
   const handleCreate = () => {
     setModalType('create');
@@ -95,7 +117,7 @@ export default function UserList() {
     try {
       await removeUser(id);
       message.success('删除成功');
-    } catch (error) {
+    } catch {
       message.error('删除失败');
     }
   };
@@ -130,7 +152,7 @@ export default function UserList() {
 
       setModalVisible(false);
       form.resetFields();
-    } catch (error) {
+    } catch {
       message.error('操作失败');
     }
   };

@@ -3,7 +3,7 @@
  */
 
 import { create } from 'zustand';
-import type { User, UserListParams, UserListResponse } from '@/types';
+import type { User, UserListParams, UserListResponse, CreateUserDTO, UpdateUserDTO } from '@/types';
 import { getUserList, createUser, updateUser, deleteUser } from '@/api';
 
 interface UserState {
@@ -16,8 +16,8 @@ interface UserState {
 
   // Actions
   fetchUsers: (params?: UserListParams) => Promise<void>;
-  addUser: (data: any) => Promise<void>;
-  editUser: (data: any) => Promise<void>;
+  addUser: (data: CreateUserDTO) => Promise<void>;
+  editUser: (data: UpdateUserDTO) => Promise<void>;
   removeUser: (id: number) => Promise<void>;
   setPage: (page: number) => void;
   setPageSize: (pageSize: number) => void;
@@ -54,36 +54,24 @@ export const useUserStore = create<UserState>((set, get) => ({
   },
 
   // 添加用户
-  addUser: async (data: any) => {
-    try {
-      await createUser(data);
-      // 刷新列表
-      await get().fetchUsers();
-    } catch (error) {
-      throw error;
-    }
+  addUser: async (data: CreateUserDTO) => {
+    await createUser(data);
+    // 刷新列表
+    await get().fetchUsers();
   },
 
   // 编辑用户
-  editUser: async (data: any) => {
-    try {
-      await updateUser(data);
-      // 刷新列表
-      await get().fetchUsers();
-    } catch (error) {
-      throw error;
-    }
+  editUser: async (data: UpdateUserDTO) => {
+    await updateUser(data);
+    // 刷新列表
+    await get().fetchUsers();
   },
 
   // 删除用户
   removeUser: async (id: number) => {
-    try {
-      await deleteUser(id);
-      // 刷新列表
-      await get().fetchUsers();
-    } catch (error) {
-      throw error;
-    }
+    await deleteUser(id);
+    // 刷新列表
+    await get().fetchUsers();
   },
 
   // 设置当前页码
