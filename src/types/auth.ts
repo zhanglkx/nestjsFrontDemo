@@ -2,7 +2,7 @@
  * 认证类型定义
  */
 
-import { User } from './user';
+import type { User } from './user';
 
 export interface LoginParams {
   username: string;
@@ -10,7 +10,7 @@ export interface LoginParams {
 }
 
 export interface LoginResponse {
-  token: string;
+  access_token: string;
   user: User;
 }
 

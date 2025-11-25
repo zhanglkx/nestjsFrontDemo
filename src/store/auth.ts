@@ -38,7 +38,7 @@ export const useAuthStore = create<AuthState>()(
         try {
           set({ loading: true });
           const response = await loginApi(params);
-          const { token, user } = response;
+          const { access_token: token, user } = response;
 
           // 保存 token
           setToken(token);
