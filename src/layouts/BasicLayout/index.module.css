@@ -1,0 +1,12 @@
+.layout {
+  height: 100vh;
+  width: 100%;
+}
+
+.layout :global(.ant-pro-layout) {
+  height: 100vh;
+}
+
+.layout :global(.ant-pro-page-container) {
+  padding: 24px;
+}
