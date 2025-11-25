@@ -1,10 +1,24 @@
-import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import axios from 'axios';
+import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [user, setUser] = useState<unknown | null>(null)
+ 
+
+  const fetchClick = () => {
+    // Use Vite proxy: /api/users/me -> http://localhost:3000/users/me
+    axios.get('/api/users/me')
+      .then(response => {
+        console.log('API Response:', response.data);
+        setUser(response.data)
+      })
+      .catch(error => {
+        console.error('There was an error fetching the API!', error);
+      });
+  }
 
   return (
     <>
@@ -18,9 +32,15 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button onClick={fetchClick}>
+          Get current user
         </button>
+        {user != null ? (
+          <div style={{ marginTop: 12, textAlign: 'left' }}>
+            <strong>Response:</strong>
+            <pre style={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(user as Record<string, unknown>, null, 2)}</pre>
+          </div>
+        ) : null}
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
