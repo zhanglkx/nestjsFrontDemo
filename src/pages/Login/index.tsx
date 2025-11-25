@@ -2,6 +2,7 @@
  * 登录页面
  */
 
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Input, Button, Card, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -21,7 +22,8 @@ export default function Login() {
       await login(values);
       message.success('登录成功');
       navigate('/dashboard');
-    } catch (error) {
+    } catch (error: unknown) {
+      console.error('Login error:', error);
       message.error('登录失败，请检查用户名和密码');
     } finally {
       setLoading(false);
@@ -43,6 +45,10 @@ export default function Login() {
             onFinish={handleSubmit}
             autoComplete="off"
             size="large"
+            initialValues={{
+              username: 'admin',
+              password: '123456',
+            }}
           >
             <Form.Item
               name="username"
@@ -93,5 +99,3 @@ export default function Login() {
     </div>
   );
 }
-
-import { useState } from 'react';
