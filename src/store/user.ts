@@ -2,9 +2,9 @@
  * 用户管理状态
  */
 
-import { create } from 'zustand';
-import type { User, UserListParams, UserListResponse, CreateUserDTO, UpdateUserDTO } from '@/types';
-import { getUserList, createUser, updateUser, deleteUser } from '@/api';
+import { create } from "zustand";
+import type { User, UserListParams, UserListResponse, CreateUserDTO, UpdateUserDTO } from "@/types";
+import { getUserList, createUser, updateUser, deleteUser } from "@/api";
 
 interface UserState {
   // 状态
@@ -42,9 +42,10 @@ export const useUserStore = create<UserState>((set, get) => ({
         ...params,
       });
 
+      console.log("🚀日志=====", response);
       set({
-        users: response.list,
-        total: response.total,
+        users: response,
+        total: response,
         loading: false,
       });
     } catch (error) {

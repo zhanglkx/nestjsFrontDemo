@@ -43,6 +43,7 @@ interface UserRoleData {
 
 export default function UserList() {
   const { users, total, loading, currentPage, pageSize, fetchUsers, addUser, editUser, removeUser, setPage, setPageSize } = useUserStore();
+
   const [modalVisible, setModalVisible] = useState(false);
   const [modalType, setModalType] = useState<'create' | 'edit'>('create');
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -311,7 +312,7 @@ export default function UserList() {
         onOk={handleModalOk}
         onCancel={handleModalCancel}
         width={600}
-        destroyOnClose
+        destroyOnHidden
       >
         <Form form={form} layout="vertical" autoComplete="off">
           <Form.Item
