@@ -11,6 +11,7 @@ export const USER_INFO_KEY = 'admin_user_info';
 // API 响应码
 export const API_CODE = {
   SUCCESS: 200,
+  CREATED: 201, // 创建成功
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
   NOT_FOUND: 404,

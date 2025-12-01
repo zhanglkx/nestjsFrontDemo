@@ -14,14 +14,14 @@ const Dashboard = lazy(() => import('@/pages/Dashboard'));
 const UserList = lazy(() => import('@/pages/User'));
 const RoleList = lazy(() => import('@/pages/Role'));
 const MenuList = lazy(() => import('@/pages/Menu'));
-
+const FeatList = lazy(() => import('@/pages/FeatList'));
 // 加载中的fallback元素
 const pageLoadingElement = (
-  <div style={{ 
-    display: 'flex', 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    height: '100vh' 
+  <div style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh'
   }}>
     <Spin size="large" tip="加载中..." />
   </div>
@@ -69,6 +69,10 @@ export const routes: RouteObject[] = [
       {
         path: 'menus',
         element: lazyLoad(MenuList),
+      },
+      {
+        path: 'feat-list',
+        element: lazyLoad(FeatList),
       },
     ],
   },

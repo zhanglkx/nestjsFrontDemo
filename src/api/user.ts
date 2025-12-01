@@ -2,20 +2,14 @@
  * 用户管理 API
  */
 
-import { get, post, put, del } from './request';
-import type {
-  User,
-  UserListParams,
-  UserListResponse,
-  CreateUserDTO,
-  UpdateUserDTO,
-} from '@/types';
+import { get, post, put, del } from "./request";
+import type { User, UserListParams, UserListResponse, CreateUserDTO, UpdateUserDTO } from "@/types";
 
 /**
  * 获取用户列表
  */
 export function getUserList(params?: UserListParams) {
-  return get<UserListResponse>('/users', { params });
+  return get<UserListResponse>("/users", { params });
 }
 
 /**
@@ -29,7 +23,7 @@ export function getUserDetail(id: number) {
  * 创建用户
  */
 export function createUser(data: CreateUserDTO) {
-  return post<User>('/users', data);
+  return post<User>("/users", data);
 }
 
 /**
@@ -50,5 +44,19 @@ export function deleteUser(id: number) {
  * 批量删除用户
  */
 export function batchDeleteUsers(ids: number[]) {
-  return del('/users/batch', { data: { ids } });
+  return del("/users/batch", { data: { ids } });
+}
+
+/**
+ * 上传文件
+ */
+export function uploadFile(file: File) {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  return post<{ url: string; filename: string }>("/upload/single", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 }

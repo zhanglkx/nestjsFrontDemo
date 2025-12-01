@@ -154,9 +154,9 @@ export default function MenuList() {
     const children = menuList
       .filter((menu) => menu.id !== excludeId)
       .filter((menu) => menu.parentId === parentId);
-    
+
     if (children.length === 0) return undefined as any;
-    
+
     return children.map((menu) => ({
       value: menu.id,
       title: menu.name,

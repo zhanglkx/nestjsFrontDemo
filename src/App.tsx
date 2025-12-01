@@ -6,7 +6,7 @@ import './App.css'
 
 function App() {
   const [user, setUser] = useState<unknown | null>(null)
- 
+
 
   const fetchClick = () => {
     // Use Vite proxy: /api/users/me -> http://localhost:3000/users/me

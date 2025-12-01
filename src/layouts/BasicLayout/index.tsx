@@ -8,9 +8,9 @@ import { ProLayout, PageContainer } from '@ant-design/pro-components';
 import {
   UserOutlined,
   DashboardOutlined,
-  TeamOutlined,
   SafetyOutlined,
   MenuOutlined,
+  FileOutlined,
   LogoutOutlined,
 } from '@ant-design/icons';
 import { Dropdown, Avatar, message } from 'antd';
@@ -45,6 +45,11 @@ export default function BasicLayout() {
       path: '/menus',
       name: '菜单管理',
       icon: <MenuOutlined />,
+    },
+    {
+      path: '/feat-list',
+      name: '功能列表',
+      icon: <FileOutlined />,
     },
   ];
 
