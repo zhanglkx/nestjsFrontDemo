@@ -26,10 +26,17 @@ import {
 } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import { getMenuList, createMenu, updateMenu, deleteMenu } from '@/api';
-import type { Menu, CreateMenuDTO, UpdateMenuDTO } from '@/types';
+import type { Menu, CreateMenuDTO, UpdateMenuDTO, MenuListParams } from '@/types';
 import { formatDateTime } from '@/utils';
 import { USER_STATUS, MENU_TYPE } from '@/constants';
 import styles from './index.module.css';
+
+// 定义树形选择器节点类型
+interface TreeNode {
+  value: number;
+  title: string;
+  children?: TreeNode[];
+}
 
 export default function MenuList() {
   const [menus, setMenus] = useState<Menu[]>([]);
@@ -44,19 +51,19 @@ export default function MenuList() {
     loadData();
   }, []);
 
-  const loadData = async (searchParams?: any) => {
+  const loadData = async (searchParams?: MenuListParams) => {
     try {
       setLoading(true);
       const menuList = await getMenuList(searchParams);
       setMenus(menuList);
-    } catch (error) {
+    } catch {
       message.error('加载菜单列表失败');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSearch = async (values: any) => {
+  const handleSearch = async (values: MenuListParams) => {
     await loadData(values);
   };
 
@@ -87,7 +94,7 @@ export default function MenuList() {
       await deleteMenu(id);
       message.success('删除成功');
       loadData();
-    } catch (error) {
+    } catch {
       message.error('删除失败');
     }
   };
@@ -128,7 +135,7 @@ export default function MenuList() {
       setModalVisible(false);
       form.resetFields();
       loadData();
-    } catch (error) {
+    } catch {
       message.error('操作失败');
     }
   };
@@ -139,7 +146,7 @@ export default function MenuList() {
   };
 
   // 构建树形选择器数据
-  const buildTreeData = (menuList: Menu[], excludeId?: number): any[] => {
+  const buildTreeData = (menuList: Menu[], excludeId?: number): TreeNode[] => {
     return menuList
       .filter((menu) => menu.id !== excludeId)
       .filter((menu) => !menu.parentId)
@@ -150,12 +157,12 @@ export default function MenuList() {
       }));
   };
 
-  const buildTreeChildren = (menuList: Menu[], parentId: number, excludeId?: number): any[] => {
+  const buildTreeChildren = (menuList: Menu[], parentId: number, excludeId?: number): TreeNode[] | undefined => {
     const children = menuList
       .filter((menu) => menu.id !== excludeId)
       .filter((menu) => menu.parentId === parentId);
 
-    if (children.length === 0) return undefined as any;
+    if (children.length === 0) return undefined;
 
     return children.map((menu) => ({
       value: menu.id,

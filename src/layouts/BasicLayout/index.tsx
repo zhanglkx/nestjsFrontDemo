@@ -13,7 +13,7 @@ import {
   FileOutlined,
   LogoutOutlined,
 } from '@ant-design/icons';
-import { Dropdown, Avatar, message } from 'antd';
+import { Dropdown, message } from 'antd';
 import type { MenuDataItem } from '@ant-design/pro-components';
 import { useAuthStore } from '@/store';
 import styles from './index.module.css';
@@ -59,7 +59,7 @@ export default function BasicLayout() {
       await logout();
       message.success('退出成功');
       navigate('/login');
-    } catch (error) {
+    } catch {
       message.error('退出失败');
     }
   };
@@ -103,7 +103,7 @@ export default function BasicLayout() {
           src: user?.avatar || undefined,
           title: user?.username || '管理员',
           size: 'small',
-          render: (props, dom) => (
+          render: (_props, dom) => (
             <Dropdown menu={avatarMenu} placement="bottomRight">
               {dom}
             </Dropdown>

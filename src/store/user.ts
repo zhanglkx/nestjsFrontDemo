@@ -44,8 +44,8 @@ export const useUserStore = create<UserState>((set, get) => ({
 
       console.log("🚀日志=====", response);
       set({
-        users: response,
-        total: response,
+        users: response.list,
+        total: response.total,
         loading: false,
       });
     } catch (error) {
