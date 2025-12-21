@@ -1,0 +1,219 @@
+/* 图表容器 */
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+}
+
+/* 图表卡片 */
+.chartCard {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.chartCard:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* 图表头部 */
+.chartHeader {
+  padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-lg);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chartTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.chartActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.actionButton {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.actionButton:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+/* 图表内容 */
+.chartContent {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  min-height: 300px;
+}
+
+/* 图表底部 */
+.chartFooter {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chartLegend {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.legendColor {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legendLabel {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.chartMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing);
+}
+
+.metaText {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+  
+  .chartCard {
+    margin: 0 -var(--spacing);
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  
+  .chartHeader {
+    padding: var(--spacing-lg);
+  }
+  
+  .chartContent {
+    padding: var(--spacing) var(--spacing-lg);
+  }
+  
+  .chartFooter {
+    padding: var(--spacing-lg);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing);
+  }
+}
+
+@media (max-width: 480px) {
+  .chartHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing);
+  }
+  
+  .chartActions {
+    align-self: flex-end;
+  }
+  
+  .chartContent {
+    padding: var(--spacing-sm) var(--spacing);
+  }
+}
+
+/* 加载状态 */
+.chartCard.loading .chartContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* 空状态 */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl);
+  color: var(--text-muted);
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: var(--spacing);
+}
+
+.emptyText {
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* 深色模式优化 */
+@media (prefers-color-scheme: dark) {
+  .chartCard {
+    background: var(--bg-secondary);
+  }
+  
+  .actionButton {
+    background: var(--bg-tertiary);
+  }
+  
+  .actionButton:hover {
+    background: var(--border);
+  }
+}

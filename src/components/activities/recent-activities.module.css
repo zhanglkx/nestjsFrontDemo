@@ -1,0 +1,300 @@
+/* 活动容器 */
+.container {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+/* 头部 */
+.header {
+  padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-lg);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.viewAllButton {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius);
+  transition: all 0.2s ease;
+}
+
+.viewAllButton:hover {
+  background: var(--bg-secondary);
+}
+
+/* 时间线 */
+.timeline {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.timelineItem {
+  display: flex;
+  gap: var(--spacing-lg);
+  position: relative;
+}
+
+.timelineItem:not(:last-child) {
+  margin-bottom: var(--spacing-xl);
+}
+
+/* 时间线标记 */
+.timelineMarker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.markerDot {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.markerIcon {
+  font-size: 1rem;
+  color: white;
+}
+
+.timelineLine {
+  width: 2px;
+  height: 40px;
+  background: var(--border-light);
+  margin-top: var(--spacing-sm);
+}
+
+/* 活动类型颜色 */
+.login {
+  background: var(--primary) !important;
+}
+
+.create {
+  background: var(--success) !important;
+}
+
+.update {
+  background: var(--warning) !important;
+}
+
+.delete {
+  background: var(--danger) !important;
+}
+
+.system {
+  background: var(--secondary) !important;
+}
+
+.default {
+  background: var(--text-muted) !important;
+}
+
+/* 时间线内容 */
+.timelineContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.activityHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing);
+  margin-bottom: var(--spacing-sm);
+}
+
+.activityTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.activityTime {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.activityDescription {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0 0 var(--spacing) 0;
+}
+
+.activityMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing);
+  flex-wrap: wrap;
+}
+
+.activityUser {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.activityType {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.activityType.login {
+  color: var(--primary);
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.activityType.create {
+  color: var(--success);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.activityType.update {
+  color: var(--warning);
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.activityType.delete {
+  color: var(--danger);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.activityType.system {
+  color: var(--secondary);
+  background: rgba(107, 114, 128, 0.1);
+}
+
+.activityType.default {
+  color: var(--text-muted);
+  background: var(--bg-secondary);
+}
+
+/* 空状态 */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl);
+  color: var(--text-muted);
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: var(--spacing);
+}
+
+.emptyText {
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .header {
+    padding: var(--spacing-lg);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing);
+  }
+  
+  .viewAllButton {
+    align-self: flex-end;
+  }
+  
+  .timeline {
+    padding: var(--spacing) var(--spacing-lg);
+  }
+  
+  .timelineItem {
+    gap: var(--spacing);
+  }
+  
+  .markerDot {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .markerIcon {
+    font-size: 0.875rem;
+  }
+  
+  .activityHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+  
+  .activityTime {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .activityMeta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+}
+
+/* 滚动条样式 */
+.timeline::-webkit-scrollbar {
+  width: 4px;
+}
+
+.timeline::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.timeline::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+.timeline::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* 深色模式优化 */
+@media (prefers-color-scheme: dark) {
+  .container {
+    background: var(--bg-secondary);
+  }
+  
+  .timelineLine {
+    background: var(--border);
+  }
+}
